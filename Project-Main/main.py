@@ -299,15 +299,28 @@ app.layout = dbc.Container(
     ],
     prevent_initial_call=True,
 )
+# =============================================================================
+# def update_figure(n, selected_year):
+#     if n:
+#         years = range(1977, 2022, 1)
+#         index = years.index(selected_year)
+#         index = (index + 1) % len(years)
+#         year = years[index]
+#     else:
+#         year = selected_year
+#     return year
+# =============================================================================
+
+
+
 def update_figure(n, selected_year):
     if n:
-        years = range(1977, 2022, 1)
-        index = years.index(selected_year)
-        index = (index + 1) % len(years)
-        year = years[index]
+        years = range(1977, 2022)
+        year = years[(selected_year - 1977 + 1) % len(years)]
     else:
         year = selected_year
     return year
+
 
 
 @app.callback(
@@ -336,11 +349,18 @@ def toggle(n, playing):
 
     ]
 )
+# =============================================================================
+# def overview_update(filter_slct_year, filter_slct_year_acc, filter_gender, filter_race, filter_methods,):
+#     set_globals(filter_slct_year, filter_slct_year_acc)
+# 
+#     return overview_map(filter_gender, filter_race, filter_methods), \
+#            overview_plot01(filter_gender, filter_race, filter_methods,)
+# =============================================================================
+
 def overview_update(filter_slct_year, filter_slct_year_acc, filter_gender, filter_race, filter_methods,):
     set_globals(filter_slct_year, filter_slct_year_acc)
 
-    return overview_map(filter_gender, filter_race, filter_methods), \
-           overview_plot01(filter_gender, filter_race, filter_methods,)
+    return overview_map(filter_gender, filter_race, filter_methods), overview_plot01(filter_gender, filter_race, filter_methods,)
 
 
 ## Update State view
@@ -369,6 +389,9 @@ def overview_update(filter_slct_year, filter_slct_year_acc, filter_gender, filte
     ],
     prevent_initial_call=False,
 )
+
+
+
 def update_state_view(clickData, filter_gender, filter_race, filter_methods, filter_slct_year, filter_slct_year_acc):
     h_time = ["Error"]
     if clickData:
@@ -423,28 +446,46 @@ def update_state_view(clickData, filter_gender, filter_race, filter_methods, fil
 
 ## Update Titles
 
+# =============================================================================
+# @app.callback(
+#     [
+#         Output(component_id="nationalTitle", component_property="children")
+#     ],
+#     [
+#         Input(component_id="execution_map", component_property="clickData"),
+#         Input(component_id="filter_slct_year", component_property="value"),
+#         Input(component_id="filter_slct_year_acc", component_property="value"),
+#     ]
+# )
+# def update_main_title(clickData, filter_slct_year, filter_slct_year_acc):
+#     h_time = ["Error"]
+#     if filter_slct_year_acc == [1]:
+#         h_time = f"Executions from 1977 - {filter_slct_year} in the USA"
+#     else:
+#         h_time = f"Executions in {filter_slct_year} in the USA"
+# 
+#     h_time = [h_time]
+# 
+#     return h_time
+# =============================================================================
+
 @app.callback(
-    [
-        Output(component_id="nationalTitle", component_property="children")
-    ],
-    [
-        Input(component_id="execution_map", component_property="clickData"),
-        Input(component_id="filter_slct_year", component_property="value"),
-        Input(component_id="filter_slct_year_acc", component_property="value"),
-    ]
+    [Output(component_id="nationalTitle", component_property="children")],
+    [Input(component_id="execution_map", component_property="clickData"),
+     Input(component_id="filter_slct_year", component_property="value"),
+     Input(component_id="filter_slct_year_acc", component_property="value")]
 )
 def update_main_title(clickData, filter_slct_year, filter_slct_year_acc):
-    h_time = ["Error"]
     if filter_slct_year_acc == [1]:
         h_time = f"Executions from 1977 - {filter_slct_year} in the USA"
     else:
         h_time = f"Executions in {filter_slct_year} in the USA"
 
-    h_time = [h_time]
+    return [h_time]
 
-    return h_time
+
 
 
 ## Start Server
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)

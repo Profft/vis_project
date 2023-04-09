@@ -1,0 +1,42 @@
+body {
+	background: #f6f8fc;
+	font-weight: 200;
+	font-family: 'Inter', sans-serif;;
+}
+
+.card {
+	border: 0;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card-header {
+	background: transparent;
+	border: 0;
+	font-weight: 600;
+	font-family: 'Inter', sans-serif;;
+}
+
+table {
+	border-collapse: collapse;
+	border-left: 0;
+	border-right: 0;
+
+}
+
+td, th {
+	text-align: center;
+	border-left: 0;
+	border-right: 0;
+}
+
+tr {
+	border: 0;
+}
+.modebar{
+      display: none !important;
+}
+
+h6 {
+	margin-bottom: .5rem;
+	margin-top: .5rem;
+}

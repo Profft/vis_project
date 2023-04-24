@@ -50,7 +50,6 @@ PIP_STYLE = {
 }
 
 
-
 ## Dash
 # Init the app
 app = dash.Dash(external_stylesheets=[dbc.themes.FLATLY,
@@ -299,18 +298,6 @@ app.layout = dbc.Container(
     ],
     prevent_initial_call=True,
 )
-# =============================================================================
-# def update_figure(n, selected_year):
-#     if n:
-#         years = range(1977, 2022, 1)
-#         index = years.index(selected_year)
-#         index = (index + 1) % len(years)
-#         year = years[index]
-#     else:
-#         year = selected_year
-#     return year
-# =============================================================================
-
 
 
 def update_figure(n, selected_year):
@@ -349,13 +336,7 @@ def toggle(n, playing):
 
     ]
 )
-# =============================================================================
-# def overview_update(filter_slct_year, filter_slct_year_acc, filter_gender, filter_race, filter_methods,):
-#     set_globals(filter_slct_year, filter_slct_year_acc)
-# 
-#     return overview_map(filter_gender, filter_race, filter_methods), \
-#            overview_plot01(filter_gender, filter_race, filter_methods,)
-# =============================================================================
+
 
 def overview_update(filter_slct_year, filter_slct_year_acc, filter_gender, filter_race, filter_methods,):
     set_globals(filter_slct_year, filter_slct_year_acc)
@@ -456,9 +437,6 @@ def update_main_title(clickData, filter_slct_year, filter_slct_year_acc):
         h_time = f"Executions in {filter_slct_year} in the USA"
 
     return [h_time]
-
-
-
 
 ## Start Server
 if __name__ == '__main__':

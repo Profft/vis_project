@@ -98,20 +98,6 @@ def set_globals(set_year_var, accumulating_var):
     set_year = set_year_var
 
 
-# =============================================================================
-# def filter_out(filter_out_list):
-#     df = Data.copy()
-#     # Remove rows that match the filters
-#     for element in filter_out_list:
-#         df = df.drop(element, axis=1)
-#     # Remove years (taking into account if accu)
-#     if accumulating == True:
-#         df = df[df["Execution Year"] <= set_year]
-#     else:
-#         df = df[df["Execution Year"] == set_year]
-#     return df
-# =============================================================================
-
 def filter_out(filter_out_list):
     df = Data.drop(columns=filter_out_list)
     # Remove years (taking into account if accu)
@@ -122,31 +108,12 @@ def filter_out(filter_out_list):
     return df
 
 
-# =============================================================================
-# def filter_out_w_past(filter_out_list):
-#     df = Data.copy()
-#     # Remove rows that match the filters
-#     for element in filter_out_list:
-#         df = df.drop(element, axis=1)
-#         df = df[df["Execution Year"] <= set_year]
-#     return df
-# =============================================================================
-
 def filter_out_w_past(filter_out_list):
     df = Data.copy()
     # Remove rows that match the filters and years
     df = df.drop(filter_out_list, axis=1)
     df = df[df["Execution Year"] <= set_year]
     return df
-
-
-# =============================================================================
-# def user_filters(df, filter_gender, filter_race, filter_methods):
-#     df = df[df['Sex'].isin(filter_gender)]
-#     df = df[df['Race'].isin(filter_race)]
-#     df = df[df['Execution Method'].isin(filter_methods)]
-#     return df
-# =============================================================================
 
 def user_filters(df, filter_gender, filter_race, filter_methods):
     mask = df['Sex'].isin(filter_gender) & \
@@ -155,64 +122,7 @@ def user_filters(df, filter_gender, filter_race, filter_methods):
     return df[mask]
 
 
-######################################
-#
-#        Overview Plots & Data
-#
-######################################
 
-# =============================================================================
-# def overview_map(filter_gender, filter_race, filter_methods):
-#     print("Running.. overview_map")
-# 
-#     # Create new dataframe
-#     filter_out_list = ["Execution#", "First Name", "Last Name", "Middle Name(s)", "Suffix", "Foreign National",
-#                        "Execution Volunteer", "Number of Victims", "Number of White Male Victims",
-#                        "Number of Black Male Victims", "Number of Latino Male Victims", "Number of Asian Male Victims",
-#                        "Number of Native American Male Victims", "Number of Other Race Male Victims",
-#                        "Number of White Female Victims", "Number of Black Female Victims",
-#                        "Number of Latino Female Victims", "Number of Asian Female Victims",
-#                        "Number of Native American Female Victims", "Number of Other Race Female Victims"]
-#     df = filter_out(filter_out_list)
-#     df = user_filters(df, filter_gender, filter_race, filter_methods)
-#     # Count executions and put into new col.
-#     df = df["State"].value_counts().rename_axis('State').reset_index(name='Executions')
-#     # Remove states with no executions.
-#     df = df[df["Executions"] != 0]
-#     # Log() execution kills
-#     df["log_Executions"] = np.log(df["Executions"])
-#     # Make sure it's never "empty" to avoid errors.
-#     if df.empty:
-#         df_gen = pd.DataFrame([[None, 0, 0]], columns=["State", "Executions", "log_Executions"])
-#         df = df_gen.copy()
-# 
-#     # Create new Map
-#     # https://plotly.com/python/reference/choropleth/
-#     fig = px.choropleth(
-#         data_frame=df,
-#         geojson=states_geojson,
-#         color="log_Executions",
-#         locations="State",
-#         scope="usa",
-#         featureidkey="properties.name",
-#         color_continuous_scale=px.colors.sequential.Redor,
-#         center={"lat": 38.856820, "lon": -101.636240},
-#         hover_name="State",
-#         hover_data={'Executions': True, 'State': False, 'log_Executions': False, }
-# 
-#     )
-#     fig.update(layout_coloraxis_showscale=False)
-#     # Hover Design
-#     fig.update_layout(map_style01)
-#     # Map Design
-#     fig.update_layout(
-#         margin_autoexpand=True,
-#         margin=dict(l=0, r=0, t=0, b=0),
-#         clickmode='event',
-#     )
-# 
-#     return fig
-# =============================================================================
 
 
 def overview_map(filter_gender, filter_race, filter_methods):
@@ -262,64 +172,6 @@ def overview_map(filter_gender, filter_race, filter_methods):
     )
 
     return fig
-
-# =============================================================================
-# def overview_plot01(filter_gender, filter_race, filter_methods):
-#     #   Figure 01 - Line Chart when Accu, Plot bar when not.
-#     print("Running.. overview_plot01")
-# 
-#     # Create new dataframe
-#     filter_out_list = ["Execution#", "First Name", "Last Name", "Middle Name(s)", "Suffix", "Foreign National",
-#                        "Execution Volunteer", "Number of Victims", "Number of White Male Victims",
-#                        "Number of Black Male Victims", "Number of Latino Male Victims", "Number of Asian Male Victims",
-#                        "Number of Native American Male Victims", "Number of Other Race Male Victims",
-#                        "Number of White Female Victims", "Number of Black Female Victims",
-#                        "Number of Latino Female Victims", "Number of Asian Female Victims",
-#                        "Number of Native American Female Victims", "Number of Other Race Female Victims"]
-#     df = filter_out(filter_out_list)
-#     df = user_filters(df, filter_gender, filter_race, filter_methods)
-# 
-#     df = df[["Execution Method", "Execution Year"]].value_counts().rename_axis(
-#         ["Execution Method", "Execution Year"]).reset_index(name='Executions')
-#     df = df.sort_values("Execution Year")
-# 
-#     if accumulating:
-#         fig = px.line(
-#             data_frame=df,
-#             x="Execution Year",
-#             y="Executions",
-#             color="Execution Method",
-#             color_discrete_map=method_color_discrete_map,
-#             markers=True, )
-#         color_discrete_map = {
-#             "Firing Squad": "red",
-#             "Electrocution": "#147852",
-#         }
-#         fig.update_layout(height=320, margin=dict(l=40, r=10, t=0, b=0),
-#                             legend=dict(yanchor="top", y=0.95, xanchor="left", x=0.05))
-#         fig.update_layout(graph_style01)
-#         fig.update_xaxes(xaxis_style01)
-#         fig.update_yaxes(yaxis_style01)
-#         fig.update_layout(legend_style01)
-#         fig.update_xaxes(title="")
-#     else:
-#         fig = px.bar(
-#             data_frame=df,
-#             x="Execution Method",
-#             y="Executions",
-#             color="Execution Method",
-#             color_discrete_map=method_color_discrete_map,
-#         )
-#         fig.update_layout(graph_style01)
-#         fig.update_xaxes(xaxis_style01)
-#         fig.update_yaxes(yaxis_style01)
-#         fig.update_layout(height=320, bargap=0.2, margin=dict(l=40, r=1, t=0, b=0), paper_bgcolor='rgba(0,0,0,0)',
-#                             plot_bgcolor='rgba(0,0,0,0)', showlegend=False)
-# 
-#     if df.empty:
-#         return null_graph
-#     return fig
-# =============================================================================
 
 
 def overview_plot01(filter_gender, filter_race, filter_methods):
@@ -496,52 +348,6 @@ def execute_list(filter_gender, filter_race, filter_methods, state_name):
     return table
 
 
-# =============================================================================
-# def state_plot01(filter_gender, filter_race, filter_methods, state_name):
-#     print("Running.. state_plot01")
-#     # Create new dataframe
-#     filter_out_list = ["Execution#", "First Name", "Last Name", "Middle Name(s)", "Suffix", "Foreign National",
-#                        "Execution Volunteer", "Number of Victims", "Number of White Male Victims",
-#                        "Number of Black Male Victims", "Number of Latino Male Victims", "Number of Asian Male Victims",
-#                        "Number of Native American Male Victims", "Number of Other Race Male Victims",
-#                        "Number of White Female Victims", "Number of Black Female Victims",
-#                        "Number of Latino Female Victims", "Number of Asian Female Victims",
-#                        "Number of Native American Female Victims", "Number of Other Race Female Victims"]
-#     df = filter_out(filter_out_list)
-#     if state_name != None:
-#         df = df[df['State'] == state_name]
-#     df = user_filters(df, filter_gender, filter_race, filter_methods)
-#     df = df[["Race", "Sex"]].value_counts().rename_axis(["Race", "Sex"]).reset_index(name='Executions')
-#     # Remove Methods with no executions.
-#     df = df[df["Sex"] != 0]
-# 
-#     fig = px.bar(
-#         data_frame=df,
-#         x="Race",
-#         y="Executions",
-#         color="Sex",
-#         color_discrete_map=gender_color_discrete_map,
-#     )
-#     fig.update_layout(graph_style01)
-#     fig.update_xaxes(xaxis_style01)
-#     fig.update_yaxes(yaxis_style01)
-#     fig.update_layout(height=273, margin=dict(l=40, r=10, t=0, b=0))
-#     # https://plotly.com/python/reference/layout/#layout-showlegend
-#     fig.update_layout(legend=dict(yanchor="bottom",
-#                                     y=0.7,
-#                                     xanchor="right",
-#                                     x=1,
-#                                     title="",
-#                                     bgcolor=legend_bg),
-#                         legend_font=dict(color=legend_font_color))
-#     fig.update_xaxes(title="")
-#     # https://plotly.com/python/reference/layout/yaxis/
-# 
-# 
-#     if df.empty:
-#         return null_graph
-#     return fig
-# =============================================================================
 #@cache.memoize()
 def state_plot01(filter_gender, filter_race, filter_methods, state_name):
     print("Running.. state_plot01")

@@ -443,32 +443,6 @@ def update_state_view(clickData, filter_gender, filter_race, filter_methods, fil
                execute_list(filter_gender, filter_race, filter_methods, None),\
                True, False, null_graph, h_Racial, list_null, h_timeline, h_list
 
-
-## Update Titles
-
-# =============================================================================
-# @app.callback(
-#     [
-#         Output(component_id="nationalTitle", component_property="children")
-#     ],
-#     [
-#         Input(component_id="execution_map", component_property="clickData"),
-#         Input(component_id="filter_slct_year", component_property="value"),
-#         Input(component_id="filter_slct_year_acc", component_property="value"),
-#     ]
-# )
-# def update_main_title(clickData, filter_slct_year, filter_slct_year_acc):
-#     h_time = ["Error"]
-#     if filter_slct_year_acc == [1]:
-#         h_time = f"Executions from 1977 - {filter_slct_year} in the USA"
-#     else:
-#         h_time = f"Executions in {filter_slct_year} in the USA"
-# 
-#     h_time = [h_time]
-# 
-#     return h_time
-# =============================================================================
-
 @app.callback(
     [Output(component_id="nationalTitle", component_property="children")],
     [Input(component_id="execution_map", component_property="clickData"),

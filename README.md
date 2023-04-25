@@ -1,5 +1,8 @@
 This is a Python code for creating a dashboard using Dash by Plotly. The dashboard provides an overview of US executions from 1977 to 2021, allowing users to filter and explore the data.
 
+When talking about executions in the USA, it can be challenging to grasp their scale and how widespread it is. This project aims to build a visualization that provides end users with an easy and manageable way to explore the topic, which lets them do their own research on the data. Our paper describes the data provided in the visualization, why the visualization is necessary to understand the data properly
+and the choices made in the design of the visualization. The dashboard has been made to be user-oriented with the intention of providing the end user with a general overview while still being able to delve into the detail of the data, should they choose to do so. The dashboard presents the user with the option to filter through attributes such as execution method, gender and/or race. This is accompanied by a built-in timeline that lets the end user choose data from the whole USA or individual states through the specific years since 1977 or accumulated up until today.
+
 ![Dashboard](https://user-images.githubusercontent.com/64041341/234227539-0c85cfbd-e25c-4117-b92e-2a68ead98fed.PNG)
 
 

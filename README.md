@@ -18,6 +18,7 @@ The overview_method_filters variable is defined as a card containing several fil
 Finally, the app.layout is defined by using Dash's HTML and core components. The layout includes a container that holds the navigation bar, the map, and the sidebar. The map is created using Plotly's GraphObjects and contains data points for each execution in the US. The sidebar contains the filter components, as well as additional plots that provide a more detailed overview of the data.
 
 Overall, this code provides a comprehensive dashboard for exploring US executions data.
+This project was a collaboration
 
 Screenshots of Dashboard:
 

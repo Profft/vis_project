@@ -22,7 +22,15 @@ Overall, this code provides a comprehensive dashboard for exploring US execution
 Screenshots of Dashboard:
 
 ![filters](https://user-images.githubusercontent.com/64041341/234227655-3078a7d6-f5ef-4095-976b-7276ea7d8782.PNG)
-![line graph](https://user-images.githubusercontent.com/64041341/234227658-6f12f878-e35a-4e36-924a-ab85c5be6676.PNG)
-![observations](https://user-images.githubusercontent.com/64041341/234227661-e3853968-33ec-4512-a227-20de7527b65b.PNG)
-![year slider](https://user-images.githubusercontent.com/64041341/234227665-4651c43f-be44-4e50-85c7-7fc621815716.PNG)
+Filters
 
+
+![line graph](https://user-images.githubusercontent.com/64041341/234227658-6f12f878-e35a-4e36-924a-ab85c5be6676.PNG)
+Line Graph
+
+
+![observations](https://user-images.githubusercontent.com/64041341/234227661-e3853968-33ec-4512-a227-20de7527b65b.PNG)
+Observations
+
+![year slider](https://user-images.githubusercontent.com/64041341/234227665-4651c43f-be44-4e50-85c7-7fc621815716.PNG)
+Year Slider

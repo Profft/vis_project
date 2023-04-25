@@ -8,7 +8,6 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
 import plotly.graph_objects as go
-
 from plot_functions import *
 from cfg import Data, Data_dummy, null_graph, choose_state_graph
 import time
@@ -56,22 +55,23 @@ app = dash.Dash(external_stylesheets=[dbc.themes.FLATLY,
                                       "assets/custom.css",
                                       "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"])
 
-# Main filters (NavBar)
+# Define the main navigation bar (filters)
 navbar = html.Div(
     dbc.Row(
         [
+            # Year Slider Filter
             dbc.Col(
                 [
-                    dcc.Interval(id="animate", disabled=True),
+                    dcc.Interval(id="animate", disabled=True), # Interval for animation
                     dcc.Slider(
                         id="filter_slct_year",
-                        min=1977,
-                        max=2021,
-                        step=1,
-                        value=2005,
-                        included=False,
-                        tooltip={"placement": "top", "always_visible": True},
-                        marks={
+                        min=1977, # Minimum year
+                        max=2021, # Maximum year
+                        step=1, # Increment step
+                        value=2005, # Default value
+                        included=False, # Show selection bar between handles
+                        tooltip={"placement": "top", "always_visible": True}, # Show tooltip on hover
+                        marks={ # Custom marks for slider
                             1977: "1977",
                             1980: "1980",
                             1990: "1990",
@@ -80,10 +80,12 @@ navbar = html.Div(
                             2021: "2021"}
                     ), ]
                 , md=10),
+            # Play Button and Accumulate Years Toggle
             dbc.Col(
                 [
                     dbc.Row(
                         [
+                            # Play Button
                             dbc.Col(
                                 dbc.Button("Play", id="play", color="primary", className="me-1", outline=True,
                                            n_clicks=0)
